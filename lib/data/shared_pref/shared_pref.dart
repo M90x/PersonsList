@@ -14,13 +14,11 @@ class SharedPrefHelper{
     pref= await SharedPreferences.getInstance();
   }
 
-
   savePerson(List<PersonModel> person){
-
     List<String> data = person.map((e) =>jsonEncode(e.toMap())).toList();
-
     pref?.setStringList('persons_test',data);
   }
+
   List<PersonModel> ? getAllPersons(){
     List<String>? data=  pref?.getStringList('persons_test');
 
@@ -30,8 +28,8 @@ class SharedPrefHelper{
       return personsModel;
     }
     return null;
-
   }
+
   clear(){
     pref?.remove('persons_test');
   }

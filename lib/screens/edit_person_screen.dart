@@ -21,16 +21,14 @@ class EditPersonScreen extends StatefulWidget {
 
 class _EditPersonScreenState extends State<EditPersonScreen> {
   late TextEditingController nameController;
-
   late TextEditingController emailController;
-
   late TextEditingController countryController;
 
   late int _age;
   late String? _image;
   String? pickedImage ;
-
   late DateTime _dob;
+
   @override
   void initState() {
     nameController = TextEditingController(text: widget.person.name);
@@ -38,7 +36,7 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
     countryController = TextEditingController(text: widget.person.country);
     _age = int.parse(widget.person.age);
     _dob = DateTime.parse(widget.person.dob);
-    _image=widget.person.image;
+    _image = widget.person.image;
     // TODO: implement initState
     super.initState();
   }
@@ -53,24 +51,30 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+              //Edit the person name
               CustomInput(
                 label: 'Name',
                 icon: Icons.perm_contact_cal_rounded,
                 textEditingController: nameController,
               ),
+
+              //Edit the person email
               CustomInput(
                 label: 'Email',
                 icon: Icons.email,
                 textEditingController: emailController,
               ),
+
+              //Edit the person country
               CustomInput(
                 label: 'Country',
                 icon: Icons.map,
                 textEditingController: countryController,
               ),
-
               SizedBox(height: 20.0,),
 
+              //View the old avatar
               BlocBuilder<PersonBloc,PersonStates>(
                 builder: (context, state) {
                   if(state.pickedImage!=null ){
@@ -84,14 +88,13 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
                 },
               ),
 
+              //Button to open the gallery to choose another avatar
               InkWell(onTap: ()async{
                 final ImagePicker _picker = ImagePicker();
-
                 await _picker
                     .pickImage(source: ImageSource.gallery)
                     .then((value) async {
                   if (value != null) {
-
                     String  tmpImage =String.fromCharCodes(await value.readAsBytes());
                     setState(() {
                       pickedImage = tmpImage;
@@ -118,9 +121,10 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
                       )),
                 ),
               ),
-
               SizedBox(height: 20.0),
 
+              //Button to open the calendar to edit the date of birth
+              //and calculate the person age
               InkWell(
                 onTap: () {
                   showDatePicker(
@@ -134,14 +138,13 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
                       setState(() {
                         _age = int.parse(age);
                       });
-
                       print('value $value');
                     }
                   });
                 },
                 child: Container(
                   width: double.infinity,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       border: Border(
                           bottom: BorderSide(color: Colors.grey, width: 1))),
                   child: Padding(
@@ -164,9 +167,9 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
                   ),
                 ),
               ),
-
               SizedBox(height: 20.0,),
 
+              //Edit and store new person data button
               CustomButton(
                 title: 'Edit',
                 onTap: () {
@@ -177,11 +180,9 @@ class _EditPersonScreenState extends State<EditPersonScreen> {
                       name: nameController.text,
                       image: pickedImage??_image,
                       dob: _dob.toString());
-
                   getIt<PersonBloc>().add(EditPersonEvent(oldPersonModel: widget.person, newPersonModel: personModel));
                   getIt<PersonBloc>().add(GetPersonsEvent());
                   Navigator.pop(context);
-
                 },
               )
             ],

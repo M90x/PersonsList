@@ -19,9 +19,7 @@ class AddPersonScreen extends StatefulWidget {
 
 class _AddPersonScreenState extends State<AddPersonScreen> {
   TextEditingController nameController = TextEditingController();
-
   TextEditingController emailController = TextEditingController();
-
   TextEditingController countryController = TextEditingController();
 
   int _age = 0;
@@ -38,24 +36,30 @@ class _AddPersonScreenState extends State<AddPersonScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+              //Enter the person name
               CustomInput(
                 label: 'Name',
                 icon: Icons.perm_contact_cal_rounded,
                 textEditingController: nameController,
               ),
+
+              //Enter the person email
               CustomInput(
                 label: 'Email',
                 icon: Icons.email,
                 textEditingController: emailController,
               ),
+
+              //Enter the person country
               CustomInput(
                 label: 'Country',
                 icon: Icons.map,
                 textEditingController: countryController,
               ),
-
               SizedBox(height: 20.0,),
 
+              //View the avatar if he chooses it from gallery
               BlocBuilder<PersonBloc,PersonStates>(
                 builder: (context, state) {
                   if(state.pickedImage!=null){
@@ -65,9 +69,9 @@ class _AddPersonScreenState extends State<AddPersonScreen> {
                   }
                 },
               ),
-
               SizedBox(height: 15,),
 
+              //Button to open the gallery to choose an avatar
               InkWell(
                 onTap: () async {
                   final ImagePicker _picker = ImagePicker();
@@ -75,9 +79,7 @@ class _AddPersonScreenState extends State<AddPersonScreen> {
                       .pickImage(source: ImageSource.gallery)
                       .then((value) async {
                     if (value != null) {
-
                       String  tmpImage =String.fromCharCodes(await value.readAsBytes());
-
                       setState(() {
                         image = tmpImage;
                       });
@@ -102,10 +104,10 @@ class _AddPersonScreenState extends State<AddPersonScreen> {
                       )),
                 ),
               ),
-
-
               SizedBox(height: 20.0),
 
+              //Button to open the calendar to choose the date of birth
+              //and calculate the person age
               InkWell(
                 onTap: () {
                   showDatePicker(
@@ -127,7 +129,7 @@ class _AddPersonScreenState extends State<AddPersonScreen> {
                 },
                 child: Container(
                   width: double.infinity,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       border: Border(
                           bottom: BorderSide(color: Colors.grey, width: 1))),
                   child: Padding(
@@ -150,9 +152,9 @@ class _AddPersonScreenState extends State<AddPersonScreen> {
                   ),
                 ),
               ),
-
               SizedBox(height: 20.0,),
 
+              //Add and store person data button
               CustomButton(
                 title: 'Add Person',
                 onTap: () {
@@ -163,10 +165,8 @@ class _AddPersonScreenState extends State<AddPersonScreen> {
                       name: nameController.text,
                       image: image,
                       dob: _dob.toString());
-
                   getIt<PersonBloc>()
                       .add(AddPersonEvent(personModel: personModel));
-
                   getIt<PersonBloc>().add(GetPersonsEvent());
                   Navigator.of(context).pop();
                 },

@@ -11,8 +11,8 @@ class SinglePersonCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
     return InkWell(
+      // Clicking on the card to edit the person data
       onTap: () {
         Navigator.push(
             context,
@@ -20,6 +20,7 @@ class SinglePersonCard extends StatelessWidget {
               builder: (context) => EditPersonScreen(person: person),
             ));
       },
+
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 10.0),
         child: Container(
@@ -41,6 +42,8 @@ class SinglePersonCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
+
+                // view the person avatar
                 Container(
                   height: 60,
                   width: 60,
@@ -49,18 +52,20 @@ class SinglePersonCard extends StatelessWidget {
                     color: Colors.green,
                     borderRadius: BorderRadius.circular(50),
                   ),
-
                   child:person.image !=null? Image.memory(
                     Uint8List.fromList(person.image!.codeUnits),
                     fit: BoxFit.cover,
                   ):SizedBox(),
                 ),
                 SizedBox(width: 10.0,),
+
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
+                    // view the person name
                     Text(
                       person.name,
                       style: const TextStyle(
@@ -69,6 +74,8 @@ class SinglePersonCard extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 5.0),
+
+                    // view the person email
                     Text(
                       person.email,
                       style: const TextStyle(
@@ -79,10 +86,13 @@ class SinglePersonCard extends StatelessWidget {
                   ],
                 ),
                 Spacer(),
+
                 Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+
+                    // view the person country
                     Text(
                       person.country,
                       style: const TextStyle(
@@ -91,6 +101,8 @@ class SinglePersonCard extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 5.0),
+
+                    // view the person age
                     Text(
                       '${person.age} Y',
                       style: const TextStyle(

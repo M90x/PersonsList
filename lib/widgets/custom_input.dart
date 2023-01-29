@@ -13,7 +13,6 @@ class CustomInput extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 5.0 ),
       child: TextFormField(
         controller: textEditingController,
-
         decoration: InputDecoration(
             prefixIcon: Icon(icon),
             label: Text(

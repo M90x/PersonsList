@@ -5,6 +5,7 @@ class CustomButton extends StatelessWidget {
   const CustomButton({Key? key, required this.title, this.onTap}) : super(key: key);
   final String title;
   final GestureTapCallback? onTap;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -15,7 +16,6 @@ class CustomButton extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25),
           color: Colors.teal,
-
         ),
         child: Center(
             child: Text(

@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 
 class PersonModel extends Equatable{
+  //final int id;
   final String name;
   final String email;
   final String? image;
@@ -13,8 +14,8 @@ class PersonModel extends Equatable{
 
   factory PersonModel.fromJson(Map<String,dynamic> json){
     return PersonModel(
+      //id: json['id'],
       name: json['name'],
-
       email: json['email'],
       country: json['country'],
       image: json['image'],

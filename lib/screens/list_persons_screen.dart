@@ -25,11 +25,13 @@ class _ListPersonsState extends State<ListPersons> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      ////////////////////////////////////////////////////////
+      /////////////// Add a new person button ///////////////
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
           // getIt<SharedPrefHelper>().clear();
-          //
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -37,6 +39,7 @@ class _ListPersonsState extends State<ListPersons> {
               ));
         },
       ),
+
       appBar: AppBar(
         title: const Text(
           'Persons',
@@ -47,10 +50,14 @@ class _ListPersonsState extends State<ListPersons> {
         ),
         centerTitle: true,
       ),
+
       body: BlocProvider<PersonBloc>.value(
         value: getIt<PersonBloc>()..add(GetPersonsEvent()),
         child: BlocBuilder<PersonBloc,PersonStates>(
           builder: (context, state) {
+
+            ////////////////////////////////////////////////////////
+            /////////////// View the list of persons ///////////////
             if(state.allPersons!=null){
               return  Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.0),

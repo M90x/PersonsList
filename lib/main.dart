@@ -10,17 +10,15 @@ void main() async{
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
 
-  // This widgets is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return ScreenUtilInit(
-
+      //Adapting screen and font size on different screen sizes.
       designSize: const Size(411.50, 876.75),
       minTextAdapt: true,
+
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
